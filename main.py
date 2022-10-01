@@ -1,5 +1,5 @@
 from enum import Enum
-import customer, line, simulation
+import customer, simulation
 
 
 class Algorithms(Enum):
