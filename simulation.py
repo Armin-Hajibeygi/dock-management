@@ -34,7 +34,7 @@ class Simulation:
         self.clock = 0
         self.customers = list()
         self.fel = list()
-        self.queue = Queue()
+        self.queue = Queue(self)
         self.number_of_customers = ({"Total": 0, CustomerType.A1.name: 0, CustomerType.A2.name: 0, CustomerType.B1.name: 0, CustomerType.B2.name: 0, CustomerType.C1.name: 0, CustomerType.C2.name: 0 })
 
 
