@@ -12,7 +12,7 @@ class Queue:
     def start_service(self, time, customer):
         self.simulation.number_of_cashiers -= 1
         self.remove_from_waiting_customers(customer)
-        customer.start_serive(time)
+        customer.start_service(time)
 
 
     def end_service(self, customer):
