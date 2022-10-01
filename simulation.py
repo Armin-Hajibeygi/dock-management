@@ -1,23 +1,6 @@
 import math, random
-from enum import Enum
-from queue import Queue
+import sim_queue
 from customer import Customer
-
-
-class EventType(Enum):
-    ARRIVAL = 1
-    SERVING = 2
-    END = 3
-
-
-class CustomerType(Enum):
-    A1 = 1
-    A2 = 2
-    B1 = 3
-    B2 = 4
-    C1 = 5
-    C2 = 6
-
 
 #Random Distribution
 #Crate Exponential Distributed Variables
@@ -34,8 +17,8 @@ class Simulation:
         self.clock = 0
         self.customers = list()
         self.fel = list()
-        self.queue = Queue(self)
-        self.number_of_customers = ({"Total": 0, CustomerType.A1.name: 0, CustomerType.A2.name: 0, CustomerType.B1.name: 0, CustomerType.B2.name: 0, CustomerType.C1.name: 0, CustomerType.C2.name: 0 })
+        self.queue = sim_queue.SimQueue(self)
+        self.number_of_customers = ({"Total": 0, sim_queue.CustomerType.A1.name: 0, sim_queue.CustomerType.A2.name: 0, sim_queue.CustomerType.B1.name: 0, sim_queue.CustomerType.B2.name: 0,sim_queue.CustomerType.C1.name: 0, sim_queue.CustomerType.C2.name: 0 })
 
 
     def fel_maker(self, event_type, event_time, customer=None):
@@ -45,6 +28,9 @@ class Simulation:
     def event_processor(self):
         event_type, event_time, customer = self.next_event()
 
+        #Nice Print of the Event
+        print(str(event_type).ljust(30) + '\t' + str(round(event_time, 3)).ljust(15) + '\t' + ("Customer" + str(customer.id)).ljust(15))
+
         #Forward Time to nearest event
         self.clock = event_time
 
@@ -52,11 +38,12 @@ class Simulation:
             self.fel.clear()
             return
 
-        if (event_type == EventType.ARRIVAL):
+        if (event_type == sim_queue.EventType.ARRIVAL):
             self.arrival(customer)
-        elif (event_type == EventType.SERVING):
+            customer.arrival_time = self.clock
+        elif (event_type == sim_queue.EventType.SERVING):
             self.queue.start_service(self.clock, customer)
-        elif (event_type == EventType.END):
+        elif (event_type == sim_queue.EventType.END):
             pass
 
         if (len(self.fel) > 0):
@@ -78,27 +65,25 @@ class Simulation:
     def arrival(self, customer):
         #Add Customer
         self.number_of_customers["Total"] += 1
-        self.number_of_customers[customer.customer_type.name] += 1
+        self.number_of_customers[customer.type.name] += 1
 
         #If we have free cashiers, the service should begin
         if (self.number_of_cashiers > 0):
             self.queue.start_service(self.clock, customer)
-            self.fel_maker(EventType.SERVING, self.clock, customer)
+            self.fel_maker(sim_queue.EventType.SERVING, self.clock, customer)
         
         #If there is no cashiers, the customer should go to the queue
         else:
             self.queue.add_customer(customer)
         
         #Interval between arrival of customers based on customer type
-        if (customer.type == CustomerType.A1):
-            interval = 1
+        if (customer.type == sim_queue.CustomerType.A1):
+            interval = 0.1
 
-        #Create Next Customer 
-        new_customer_id = Customer.next_id
-        new_customer_arrival_time = self.clock + interval
+        #Create Next Customer
         new_customer_type = customer.type
-        new_customer = Customer(new_customer_id, new_customer_type, new_customer_arrival_time, self.queue, self)
+        new_customer = Customer(new_customer_type, self.queue, self)
         self.customers.append(new_customer)
 
         #Create the next arrival event
-        self.fel_maker(EventType.ARRIVAL, self.clock + interval, new_customer)
+        self.fel_maker(sim_queue.EventType.ARRIVAL, self.clock + interval, new_customer)

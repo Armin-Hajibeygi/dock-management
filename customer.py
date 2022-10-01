@@ -1,5 +1,4 @@
 from enum import Enum
-import simulation
 
 class CustomerStatus(Enum):
     WAITING = 1
@@ -9,14 +8,12 @@ class CustomerStatus(Enum):
 class Customer:
     next_id = 1
 
-    def __init__(self, id, type, arrival_time, queue, simulation):
-        self.id = id
+    def __init__(self, type, queue, simulation):
+        self.id = Customer.next_id
         self.type = type
-        self.arrival_time = arrival_time
         self.status = CustomerStatus.WAITING
         self.queue = queue
         self.simulation = simulation
-        self.work_duration = simulation.exponential()
         Customer.next_id += 1
 
     def start_service(self, clock):
@@ -27,5 +24,6 @@ class Customer:
         self.status = CustomerStatus.END
         self.end_time = clock
 
+        #Calculate waiting times
         self.queue_waiting_time = self.start_time - self.arrival_time
         self.total_time = self.end_time - self.arrival_time

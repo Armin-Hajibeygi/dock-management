@@ -1,8 +1,23 @@
 from main import Algorithms
-from simulation import CustomerType, EventType
+from enum import Enum
 
 
-class Queue:
+class EventType(Enum):
+    ARRIVAL = 1
+    SERVING = 2
+    END = 3
+
+
+class CustomerType(Enum):
+    A1 = 1
+    A2 = 2
+    B1 = 3
+    B2 = 4
+    C1 = 5
+    C2 = 6
+
+
+class SimQueue:
     def __init__(self, simulation):
         self.waiting_customers = list()
         self.simulation = simulation
