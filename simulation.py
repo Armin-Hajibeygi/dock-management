@@ -94,6 +94,16 @@ class Simulation:
         #Interval between arrival of customers based on customer type
         if (customer.type == CustomerType.A1):
             interval = Interval.A1
+        elif (customer.type == CustomerType.A2):
+            interval = Interval.A2
+        elif (customer.type == CustomerType.B1):
+            interval = Interval.B1
+        elif (customer.type == CustomerType.B2):
+            interval = Interval.B2
+        elif (customer.type == CustomerType.C1):
+            interval = Interval.C1
+        elif (customer.type == CustomerType.C2):
+            interval = Interval.C2
 
         #Create Next Customer
         new_customer_type = customer.type
@@ -110,6 +120,16 @@ class Simulation:
         #Duration of service
         if (customer.type == CustomerType.A1):
             duration = Duration.A1
+        elif (customer.type == CustomerType.A2):
+            duration = Duration.A2
+        elif (customer.type == CustomerType.B1):
+            duration = Duration.B1
+        elif (customer.type == CustomerType.B2):
+            duration = Duration.B2
+        elif (customer.type == CustomerType.C1):
+            duration = Duration.C1
+        elif (customer.type == CustomerType.C2):
+            duration = Duration.C2
         
         #Remove customer from the line if it's from the line
         if (customer in self.main_line.waiting_customers):

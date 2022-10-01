@@ -13,18 +13,18 @@ class Algorithms(Enum):
 
 
 class Duration():
-    A1 = 90
-    A2 = 2
-    B1 = 3
-    B2 = 4
-    C1 = 5
-    C2 = 6
+    A1 = 5
+    A2 = 10
+    B1 = 15
+    B2 = 30
+    C1 = 40
+    C2 = 50
 
 
 class Interval():
     A1 = 10
-    A2 = 2
-    B1 = 3
-    B2 = 4
-    C1 = 5
-    C2 = 6
+    A2 = 20
+    B1 = 30
+    B2 = 40
+    C1 = 50
+    C2 = 60
