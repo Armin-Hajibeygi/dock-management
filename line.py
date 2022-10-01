@@ -1,4 +1,4 @@
-from algorithms import Algorithms
+from consts import Algorithms
 
 class Line:
     def __init__(self) -> None:

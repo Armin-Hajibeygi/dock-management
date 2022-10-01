@@ -1,14 +1,7 @@
-import math, random
 import line
-from customer import Customer
+from customer import Customer, CustomerStatus
 from enum import Enum
-
-
-#Random Distribution
-#Crate Exponential Distributed Variables
-def exponential(lambd):
-    r = random.random()
-    return -(1 / lambd) * math.log(1 - r,math.e)
+from consts import Duration, Interval
 
 
 class CustomerType(Enum):
@@ -100,7 +93,7 @@ class Simulation:
         
         #Interval between arrival of customers based on customer type
         if (customer.type == CustomerType.A1):
-            interval = 10
+            interval = Interval.A1
 
         #Create Next Customer
         new_customer_type = customer.type
@@ -116,7 +109,7 @@ class Simulation:
 
         #Duration of service
         if (customer.type == CustomerType.A1):
-            duration = 40
+            duration = Duration.A1
         
         #Remove customer from the line if it's from the line
         if (customer in self.main_line.waiting_customers):
@@ -134,3 +127,16 @@ class Simulation:
         if (len(self.main_line.waiting_customers) > 0):
             next_customer = self.main_line.next_customer(self.algorithm)
             self.fel_maker(EventType.SERVING, self.clock, next_customer)
+
+    
+    def total_customers(self):
+        return len(self.customers)
+
+    
+    def total_served_customers(self):
+        total_served_customers = 0
+        for customer in self.customers:
+            if (customer.status == CustomerStatus.END):
+                total_served_customers += 1
+        
+        return total_served_customers
