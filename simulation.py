@@ -42,6 +42,16 @@ class Simulation:
         self.fel.append({"Event Type": event_type, "Event Time": event_time, "Customer": customer})
 
     
+    def event_processor(self):
+        event_type, event_time, customer = self.next_event()
+
+        if (event_type == EventType.ARRIVAL):
+            self.arrival(customer)
+
+        #Forward Time to nearest event
+        self.clock = event_time
+
+    
     def next_event(self):
         sorted_fel = sorted(self.fel, key=lambda x: x['Event Time'])
         current_event = sorted_fel[0]
@@ -52,16 +62,10 @@ class Simulation:
         return event_type, event_time, customer
 
 
-    def arrival(self, customer_type):
+    def arrival(self, customer):
+        #Add Customer
         self.number_of_customers["Total"] += 1
-        self.number_of_customers[customer_type.name] += 1
-
-        #Create Customer
-        customer_id = Customer.next_id
-        customer_arrival_time = self.clock
-
-        customer = Customer(customer_id, customer_type, customer_arrival_time, self.queue, self)
-        self.customers.append(customer)
+        self.number_of_customers[customer.customer_type.name] += 1
 
         #If we have free cashiers, the service should begin
         if (self.number_of_cashiers > 0):
@@ -70,5 +74,19 @@ class Simulation:
         #If there is no cashiers, the customer should go to the queue
         else:
             self.queue.add_customer(customer)
+        
+        #Interval between arrival of customers based on customer type
+        if (customer.type == CustomerType.A1):
+            interval = 1
+
+        #Create Next Customer 
+        new_customer_id = Customer.next_id
+        new_customer_arrival_time = self.clock + interval
+        new_customer_type = customer.type
+        new_customer = Customer(new_customer_id, new_customer_type, new_customer_arrival_time, self.queue, self)
+        self.customers.append(new_customer)
+
+        #Create the next arrival event
+        self.fel_maker(EventType.ARRIVAL, self.clock + interval, new_customer)
 
 
