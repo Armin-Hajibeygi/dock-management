@@ -45,23 +45,32 @@ class Simulation:
     def event_processor(self):
         event_type, event_time, customer = self.next_event()
 
-        if (event_type == EventType.ARRIVAL):
-            self.arrival(customer)
-        elif (event_type == EventType.SERVING):
-            pass
-        elif (event_type == EventType.END):
-            pass
-
         #Forward Time to nearest event
         self.clock = event_time
 
-    
+        if (self.clock > self.time):
+            self.fel.clear()
+            return
+
+        if (event_type == EventType.ARRIVAL):
+            self.arrival(customer)
+        elif (event_type == EventType.SERVING):
+            self.queue.start_service(self.clock, customer)
+        elif (event_type == EventType.END):
+            pass
+
+        if (len(self.fel) > 0):
+            self.event_processor()
+
+
     def next_event(self):
         sorted_fel = sorted(self.fel, key=lambda x: x['Event Time'])
         current_event = sorted_fel[0]
         event_type = current_event["Event Type"]
         event_time = current_event['Event Time']
         customer = current_event['Customer']
+
+        self.fel.remove(current_event)
 
         return event_type, event_time, customer
 
@@ -73,7 +82,8 @@ class Simulation:
 
         #If we have free cashiers, the service should begin
         if (self.number_of_cashiers > 0):
-            customer.start_service(self.clock)
+            self.queue.start_service(self.clock, customer)
+            self.fel_maker(EventType.SERVING, self.clock, customer)
         
         #If there is no cashiers, the customer should go to the queue
         else:
@@ -92,5 +102,3 @@ class Simulation:
 
         #Create the next arrival event
         self.fel_maker(EventType.ARRIVAL, self.clock + interval, new_customer)
-
-

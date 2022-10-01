@@ -1,5 +1,5 @@
 from main import Algorithms
-
+from simulation import CustomerType, EventType
 class Queue:
     def __init__(self):
         self.waiting_customers = list()
@@ -10,7 +10,15 @@ class Queue:
 
 
     def start_service(self, time, customer):
+        #Duration of service
+        if (customer.type == CustomerType.A1):
+            duration = 1
+
+        #Create end of service event
+        self.fel_maker(EventType.END, time + duration, customer)
+
         self.simulation.number_of_cashiers -= 1
+
         self.remove_from_waiting_customers(customer)
         customer.start_service(time)
 

@@ -19,11 +19,13 @@ class Customer:
         self.work_duration = simulation.exponential()
         Customer.next_id += 1
 
-    def start_service(self, time):
+    def start_service(self, clock):
         self.status = CustomerStatus.SERVING
-        self.start_service = time
-        self.end_time = self.start_service + self.work_duration
-        self.simulation.fel_maker(simulation.EventType.END, self.end_time, self.id)  
+        self.start_time = clock
 
-    def end_service(self):
+    def end_service(self, clock):
         self.status = CustomerStatus.END
+        self.end_time = clock
+
+        self.queue_waiting_time = self.start_time - self.arrival_time
+        self.total_time = self.end_time - self.arrival_time
