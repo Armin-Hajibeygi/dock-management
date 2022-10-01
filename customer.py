@@ -7,6 +7,10 @@ class Customer:
         self.type = type
 
 
+    def arrival(self, clock):
+        self.arrival_time = clock
+
+
     def start_service(self, clock):
         self.start_time = clock
 

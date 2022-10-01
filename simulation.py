@@ -84,6 +84,7 @@ class Simulation:
     def arrival(self, customer):
         #Add Customer
         self.customers.append(customer)
+        customer.arrival(self.clock)
         self.number_of_customers["Total"] += 1
         self.number_of_customers[customer.type.name] += 1
 
