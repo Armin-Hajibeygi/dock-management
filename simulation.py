@@ -26,10 +26,6 @@ def exponential(lambd):
     return -(1 / lambd) * math.log(1 - r,math.e)
 
 
-def nice_print(current_state, current_event, current_customer):
-    print(str(current_event['Event Type']).ljust(30) + '\t' + str(round(current_event['Event Time'], 3)).ljust(15) + '\t' + str(current_customer).ljust(15))
-
-
 class Simulation:
     def __init__(self, time, algorithm, number_of_cashiers):
         self.time = time
