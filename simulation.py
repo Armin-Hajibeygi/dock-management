@@ -73,7 +73,6 @@ class Simulation:
         #Process the Event
         if (event_type == EventType.ARRIVAL):
             self.arrival(customer)
-            customer.arrival_time = self.clock
         elif (event_type == EventType.SERVING):
             self.start_service(customer)
         elif (event_type == EventType.END):
@@ -93,7 +92,6 @@ class Simulation:
 
         #If we have free cashiers, the service should begin
         if (self.number_of_cashiers > 0):
-            self.start_service(customer)
             self.fel_maker(EventType.SERVING, self.clock, customer)
         
         #If there is no cashiers, the customer should go to the queue
@@ -118,7 +116,7 @@ class Simulation:
 
         #Duration of service
         if (customer.type == CustomerType.A1):
-            duration = 30
+            duration = 40
         
         #Remove customer from the line if it's from the line
         if (customer in self.main_line.waiting_customers):
