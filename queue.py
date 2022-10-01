@@ -2,12 +2,10 @@ from main import Algorithms
 
 class Queue:
     def __init__(self):
-        self.customers = list()
         self.waiting_customers = list()
 
 
     def add_customer(self, customer):
-        self.customers.append(customer)
         self.waiting_customers.append(customer)
 
 

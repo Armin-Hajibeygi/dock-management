@@ -7,6 +7,8 @@ class CustomerStatus(Enum):
     END = 3
 
 class Customer:
+    next_id = 1
+
     def __init__(self, id, type, arrival_time, queue, simulation):
         self.id = id
         self.type = type
@@ -15,6 +17,7 @@ class Customer:
         self.queue = queue
         self.simulation = simulation
         self.work_duration = simulation.exponential()
+        Customer.next_id += 1
 
     def start_service(self, time):
         self.status = CustomerStatus.SERVING
