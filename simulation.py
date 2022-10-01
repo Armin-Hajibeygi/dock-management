@@ -47,6 +47,10 @@ class Simulation:
 
         if (event_type == EventType.ARRIVAL):
             self.arrival(customer)
+        elif (event_type == EventType.SERVING):
+            pass
+        elif (event_type == EventType.END):
+            pass
 
         #Forward Time to nearest event
         self.clock = event_time
