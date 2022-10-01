@@ -32,3 +32,4 @@ print(f"Total Served Customers in Simulation: {dock_management.total_served_cust
 print('-------------------------------------------------------------------------------------------------')
 for k, v in dock_management.number_of_customers.items():
     print(f"Number of {k} Customers: {v}")
+print('-------------------------------------------------------------------------------------------------')
