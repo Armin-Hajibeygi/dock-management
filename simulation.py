@@ -57,13 +57,16 @@ class Simulation:
         event_type, event_time, customer = self.next_event()
 
         #Nice Print of the Event
-        print(str(event_type).ljust(30) + '\t' + str(round(event_time, 3)).ljust(15) + '\t' + ("Customer" + str(customer.id)).ljust(15))
+        try:
+            print(str(event_type).ljust(30) + '\t' + str(round(event_time, 3)).ljust(15) + '\t' + ("Customer" + str(customer.id)).ljust(15))
+        except:
+            print(str(event_type).ljust(30) + '\t' + str(round(event_time, 3)).ljust(15))            
 
         #Forward Time to nearest event
         self.clock = event_time
 
         #End the simulation if time exceed simulation time
-        if (self.clock > self.simulation_time):
+        if (self.clock >= self.simulation_time):
             self.fel.clear()
             return
 
@@ -90,7 +93,7 @@ class Simulation:
 
         #If we have free cashiers, the service should begin
         if (self.number_of_cashiers > 0):
-            self.main_line.start_service(self.clock, customer, self.algorithm)
+            self.start_service(customer)
             self.fel_maker(EventType.SERVING, self.clock, customer)
         
         #If there is no cashiers, the customer should go to the queue
@@ -99,7 +102,7 @@ class Simulation:
         
         #Interval between arrival of customers based on customer type
         if (customer.type == CustomerType.A1):
-            interval = 0.1
+            interval = 10
 
         #Create Next Customer
         new_customer_type = customer.type
@@ -115,7 +118,7 @@ class Simulation:
 
         #Duration of service
         if (customer.type == CustomerType.A1):
-            duration = 1
+            duration = 30
         
         #Remove customer from the line if it's from the line
         if (customer in self.main_line.waiting_customers):

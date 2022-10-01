@@ -1,4 +1,4 @@
-from main import Algorithms
+from algorithms import Algorithms
 
 class Line:
     def __init__(self) -> None:
