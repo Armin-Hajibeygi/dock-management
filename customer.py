@@ -1,27 +1,17 @@
-from enum import Enum
-
-class CustomerStatus(Enum):
-    WAITING = 1
-    SERVING = 2
-    END = 3
-
 class Customer:
-    next_id = 1
-
-    def __init__(self, type, queue, simulation):
-        self.id = Customer.next_id
+    customer_id = 1
+    
+    def __init__(self, type) -> None:
+        self.id = Customer.customer_id
+        Customer.customer_id += 1
         self.type = type
-        self.status = CustomerStatus.WAITING
-        self.queue = queue
-        self.simulation = simulation
-        Customer.next_id += 1
+
 
     def start_service(self, clock):
-        self.status = CustomerStatus.SERVING
         self.start_time = clock
 
+
     def end_service(self, clock):
-        self.status = CustomerStatus.END
         self.end_time = clock
 
         #Calculate waiting times
