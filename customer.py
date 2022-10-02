@@ -32,3 +32,9 @@ class Customer:
         #Calculate waiting times
         self.queue_waiting_time = self.start_time - self.arrival_time
         self.total_time = self.end_time - self.arrival_time
+
+    
+    def get_served(self):
+        if (self.status == CustomerStatus.END):
+            return True
+        return False

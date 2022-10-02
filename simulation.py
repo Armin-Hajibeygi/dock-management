@@ -160,3 +160,20 @@ class Simulation:
                 total_served_customers += 1
         
         return total_served_customers
+
+
+    def simulation_data(self):
+        simulation_data = dict()
+        simulation_data["A1"] = {"Total": 0, "Served": 0}
+        simulation_data["A2"] = {"Total": 0, "Served": 0}
+        simulation_data["B1"] = {"Total": 0, "Served": 0}
+        simulation_data["B2"] = {"Total": 0, "Served": 0}
+        simulation_data["C1"] = {"Total": 0, "Served": 0}
+        simulation_data["C2"] = {"Total": 0, "Served": 0}
+
+        for customer in self.customers:
+            simulation_data[customer.type.name]["Total"] += 1
+            if (customer.get_served()):
+                simulation_data[customer.type.name]["Served"] += 1
+            
+        return simulation_data
