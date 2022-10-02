@@ -2,7 +2,7 @@ import customer, simulation
 from consts import Algorithms
 
 simulation_time = 8*60
-dock_management = simulation.Simulation(simulation_time= simulation_time, algorithm= Algorithms.FIFO, number_of_cashiers= 3)
+dock_management = simulation.Simulation(simulation_time= simulation_time, algorithm= Algorithms.SJF, number_of_cashiers= 3)
 
 #Initial State
 customer1 = customer.Customer(simulation.CustomerType.A1)

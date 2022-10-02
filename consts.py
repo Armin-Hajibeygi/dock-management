@@ -10,6 +10,7 @@ def exponential(lambd):
 
 class Algorithms(Enum):
     FIFO = 1
+    SJF = 2
 
 
 class Duration():

@@ -16,9 +16,17 @@ class Line:
     def next_customer(self, algorithm):
         if algorithm == Algorithms.FIFO:
             next_customer = self.fifo()
+        
+        elif algorithm == Algorithms.SJF:
+            next_customer = self.sjf()
 
         return next_customer
 
 
     def fifo(self):
         return self.waiting_customers[0]
+
+    
+    def sjf(self):
+        sort_by_sjf = sorted(self.waiting_customers, key= lambda customer: customer.type)
+        return sort_by_sjf[0]

@@ -1,10 +1,10 @@
 import line
 from customer import Customer, CustomerStatus
-from enum import Enum
+from enum import Enum, IntEnum
 from consts import Duration, Interval
 
 
-class CustomerType(Enum):
+class CustomerType(IntEnum):
     A1 = 1
     A2 = 2
     B1 = 3
