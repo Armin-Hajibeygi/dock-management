@@ -50,10 +50,10 @@ class Simulation:
         event_type, event_time, customer = self.next_event()
 
         #Nice Print of the Event
-        try:
-            print(str(event_type).ljust(30) + '\t' + str(round(event_time, 3)).ljust(15) + '\t' + ("Customer" + str(customer.id)).ljust(15))
-        except:
-            print(str(event_type).ljust(30) + '\t' + str(round(event_time, 3)).ljust(15))            
+        # try:
+        #     print(str(event_type).ljust(30) + '\t' + str(round(event_time, 3)).ljust(15) + '\t' + ("Customer" + str(customer.id)).ljust(15))
+        # except:
+        #     print(str(event_type).ljust(30) + '\t' + str(round(event_time, 3)).ljust(15))            
 
         #Forward Time to nearest event
         self.clock = event_time
