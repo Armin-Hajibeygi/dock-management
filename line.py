@@ -28,5 +28,5 @@ class Line:
 
     
     def sjf(self):
-        sort_by_sjf = sorted(self.waiting_customers, key= lambda customer: customer.type)
+        sort_by_sjf = sorted(self.waiting_customers, key= lambda customer: customer.duration)
         return sort_by_sjf[0]

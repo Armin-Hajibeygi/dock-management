@@ -1,10 +1,6 @@
 from enum import Enum
-
-class CustomerStatus(Enum):
-    ARRIVED = 1
-    SERVING = 2
-    END = 3
-
+from consts import Duration, CustomerType
+from consts import CustomerStatus as CustomerStatus
 
 class Customer:
     customer_id = 1
@@ -13,6 +9,19 @@ class Customer:
         self.id = Customer.customer_id
         Customer.customer_id += 1
         self.type = type
+
+        if (self.type == CustomerType.A1):
+            self.duration = Duration.A1
+        elif (self.type == CustomerType.A2):
+            self.duration = Duration.A2
+        elif (self.type == CustomerType.B1):
+            self.duration = Duration.B1
+        elif (self.type == CustomerType.B2):
+            self.duration = Duration.B2
+        elif (self.type == CustomerType.C1):
+            self.duration = Duration.C1
+        elif (self.type == CustomerType.C2):
+            self.duration = Duration.C2
 
 
     def arrival(self, clock):

@@ -1,4 +1,4 @@
-from enum import Enum
+from enum import Enum, IntEnum
 import random, math
 
 #Random Distribution
@@ -7,6 +7,26 @@ def exponential(lambd):
     r = random.random()
     return -(1 / lambd) * math.log(1 - r,math.e)
 
+class CustomerType(IntEnum):
+    A1 = 1
+    A2 = 2
+    B1 = 3
+    B2 = 4
+    C1 = 5
+    C2 = 6
+
+
+class EventType(Enum):
+    ARRIVAL = 1
+    SERVING = 2
+    END = 3
+
+
+class CustomerStatus(Enum):
+    ARRIVED = 1
+    SERVING = 2
+    END = 3
+    
 
 class Algorithms(Enum):
     FIFO = 1

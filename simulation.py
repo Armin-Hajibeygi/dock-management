@@ -1,22 +1,9 @@
 import line
 from customer import Customer, CustomerStatus
-from enum import Enum, IntEnum
-from consts import Duration, Interval
+from consts import Interval
+from consts import CustomerType as CustomerType
+from consts import EventType as EventType
 
-
-class CustomerType(IntEnum):
-    A1 = 1
-    A2 = 2
-    B1 = 3
-    B2 = 4
-    C1 = 5
-    C2 = 6
-
-
-class EventType(Enum):
-    ARRIVAL = 1
-    SERVING = 2
-    END = 3
 
 class Simulation:
     def __init__(self, simulation_time, algorithm, number_of_cashiers) -> None:
@@ -117,19 +104,8 @@ class Simulation:
         customer.start_service(self.clock)
         self.number_of_cashiers -= 1
 
-        #Duration of service
-        if (customer.type == CustomerType.A1):
-            duration = Duration.A1
-        elif (customer.type == CustomerType.A2):
-            duration = Duration.A2
-        elif (customer.type == CustomerType.B1):
-            duration = Duration.B1
-        elif (customer.type == CustomerType.B2):
-            duration = Duration.B2
-        elif (customer.type == CustomerType.C1):
-            duration = Duration.C1
-        elif (customer.type == CustomerType.C2):
-            duration = Duration.C2
+        #Duration of service        
+        duration = customer.duration
         
         #Remove customer from the line if it's from the line
         if (customer in self.main_line.waiting_customers):
