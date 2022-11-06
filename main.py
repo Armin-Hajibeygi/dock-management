@@ -3,7 +3,7 @@ from consts import Algorithms
 import os, sys
 
 simulation_time = 8 * 60
-simulation_algorithm = Algorithms.FIFO
+simulation_algorithm = Algorithms.SCALED_T
 
 sys.setrecursionlimit(simulation_time * 10)
 

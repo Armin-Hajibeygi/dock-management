@@ -32,6 +32,7 @@ class Algorithms(Enum):
     FIFO = 1
     SJF = 2
     HRRN = 3
+    SCALED_T = 4
 
 
 class Duration():
@@ -50,3 +51,12 @@ class Interval():
     B2 = 40
     C1 = 50
     C2 = 60
+
+
+class CustomerWeight():
+    A1 = 1
+    A2 = 2
+    B1 = 3
+    B2 = 4
+    C1 = 5
+    C2 = 6

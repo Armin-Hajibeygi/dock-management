@@ -22,6 +22,9 @@ class Line:
 
         elif algorithm == Algorithms.HRRN:
             next_customer = self.hrrn(clock)
+        
+        elif algorithm == Algorithms.SCALED_T:
+            next_customer = self.scaled_t(clock)
 
         self.remove_customer(next_customer)
 
@@ -41,7 +44,23 @@ class Line:
         for customer in self.waiting_customers:
             customer.get_hrrn_score(clock)
 
-        sort_by_hrrn = sorted(self.waiting_customers, key= lambda customer: customer.hrrn_score)
+        sort_by_hrrn = sorted(self.waiting_customers, key= lambda customer: customer.score)
         return sort_by_hrrn[-1]
+
+    
+    def scaled_t(self, clock):
+        for customer in self.waiting_customers:
+            customer.get_waiting_time(clock)
+        
+        sorted_waiting_time = sorted(self.waiting_customers, key= lambda customer: customer.waiting_time)
+        min_waiting_time = sorted_waiting_time[0].waiting_time
+        max_waiting_time = sorted_waiting_time[-1].waiting_time
+
+        for customer in self.waiting_customers:
+            customer.get_scaled_t_score(min_waiting_time, max_waiting_time)
+
+        
+        sort_by_scaled_t = sorted(self.waiting_customers, key= lambda customer: customer.score)
+        return sort_by_scaled_t[-1]
         
         

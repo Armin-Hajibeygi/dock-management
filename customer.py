@@ -1,6 +1,5 @@
 from enum import Enum
-from consts import Duration, CustomerType
-from consts import CustomerStatus as CustomerStatus
+from consts import Duration, CustomerType, CustomerStatus, CustomerWeight
 
 class Customer:
     customer_id = 1
@@ -55,4 +54,23 @@ class Customer:
     
     def get_hrrn_score(self, clock):
         self.get_waiting_time(clock)
-        self.hrrn_score = 1 + (self.waiting_time / self.duration)
+        self.score = 1 + (self.waiting_time / self.duration)
+
+    
+    def get_scaled_t_score(self, min, max):
+        t_score = 100 * ((self.waiting_time - min) / (max - min))
+        
+        if (self.type == CustomerType.A1):
+            w_score = CustomerWeight.A1
+        elif (self.type == CustomerType.A2):
+            w_score = CustomerWeight.A2
+        elif (self.type == CustomerType.B1):
+            w_score = CustomerWeight.B1
+        elif (self.type == CustomerType.B2):
+            w_score = CustomerWeight.B2
+        elif (self.type == CustomerType.C1):
+            w_score = CustomerWeight.C1
+        elif (self.type == CustomerType.C2):
+            w_score = CustomerWeight.C2
+
+        self.score =  t_score + w_score
