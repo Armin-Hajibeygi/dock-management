@@ -13,12 +13,17 @@ class Line:
         self.waiting_customers.remove(customer)
     
     
-    def next_customer(self, algorithm):
+    def next_customer(self, algorithm, clock):
         if algorithm == Algorithms.FIFO:
             next_customer = self.fifo()
         
         elif algorithm == Algorithms.SJF:
             next_customer = self.sjf()
+
+        elif algorithm == Algorithms.HRRN:
+            next_customer = self.hrrn(clock)
+
+        self.remove_customer(next_customer)
 
         return next_customer
 
@@ -30,3 +35,13 @@ class Line:
     def sjf(self):
         sort_by_sjf = sorted(self.waiting_customers, key= lambda customer: customer.duration)
         return sort_by_sjf[0]
+
+    
+    def hrrn(self, clock):
+        for customer in self.waiting_customers:
+            customer.get_hrrn_score(clock)
+
+        sort_by_hrrn = sorted(self.waiting_customers, key= lambda customer: customer.hrrn_score)
+        return sort_by_hrrn[-1]
+        
+        

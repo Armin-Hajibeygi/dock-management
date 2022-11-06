@@ -11,6 +11,7 @@ class Simulation:
         self.algorithm = algorithm
         self.number_of_cashiers = number_of_cashiers
         self.clock = 0
+        self.total_served_customers = 0
         self.customers = list()
         self.fel = list()
         self.main_line = line.Line()
@@ -117,25 +118,17 @@ class Simulation:
 
     def end_service(self, customer):
         customer.end_service(self.clock)
+        self.total_served_customers += 1
         self.number_of_cashiers += 1
 
         #Create next service event
         if (len(self.main_line.waiting_customers) > 0):
-            next_customer = self.main_line.next_customer(self.algorithm)
+            next_customer = self.main_line.next_customer(self.algorithm, self.clock)
             self.fel_maker(EventType.SERVING, self.clock, next_customer)
 
     
     def total_customers(self):
         return len(self.customers)
-
-    
-    def total_served_customers(self):
-        total_served_customers = 0
-        for customer in self.customers:
-            if (customer.status == CustomerStatus.END):
-                total_served_customers += 1
-        
-        return total_served_customers
 
 
     def simulation_data(self):

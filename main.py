@@ -1,9 +1,11 @@
 import customer, simulation
 from consts import Algorithms
-import os
+import os, sys
 
-simulation_time = 8*60
-simulation_algorithm = Algorithms.SJF
+simulation_time = 8 * 60
+simulation_algorithm = Algorithms.FIFO
+
+sys.setrecursionlimit(simulation_time * 10)
 
 dock_management = simulation.Simulation(simulation_time= simulation_time, algorithm= simulation_algorithm, number_of_cashiers= 3)
 
@@ -33,7 +35,7 @@ os.system('clear')
 print(f"Simulation Algorithm: {simulation_algorithm.name}")
 print('-------------------------------------------------------------------------------------------------')
 print(f"Total Customers in Simulation: {dock_management.total_customers()}")
-print(f"Total Served Customers in Simulation: {dock_management.total_served_customers()}")
+print(f"Total Served Customers in Simulation: {dock_management.total_served_customers}")
 print('-------------------------------------------------------------------------------------------------')
 for category, data in dock_management.simulation_data().items():
     print(f"Category {category}: Total = {data['Total']} ** Served = {data['Served']} -> Percent: {int(data['Served'] / data['Total'] * 100)}%")

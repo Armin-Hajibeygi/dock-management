@@ -47,3 +47,12 @@ class Customer:
         if (self.status == CustomerStatus.END):
             return True
         return False
+
+    
+    def get_waiting_time(self, clock):
+        self.waiting_time = clock - self.arrival_time
+
+    
+    def get_hrrn_score(self, clock):
+        self.get_waiting_time(clock)
+        self.hrrn_score = 1 + (self.waiting_time / self.duration)

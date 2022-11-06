@@ -26,20 +26,21 @@ class CustomerStatus(Enum):
     ARRIVED = 1
     SERVING = 2
     END = 3
-    
+
 
 class Algorithms(Enum):
     FIFO = 1
     SJF = 2
+    HRRN = 3
 
 
 class Duration():
-    A1 = 5
-    A2 = 10
-    B1 = 15
-    B2 = 30
-    C1 = 40
-    C2 = 50
+    A1 = 50
+    A2 = 100
+    B1 = 150
+    B2 = 300
+    C1 = 400
+    C2 = 500
 
 
 class Interval():
