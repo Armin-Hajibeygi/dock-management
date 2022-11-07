@@ -36,21 +36,21 @@ class Algorithms(Enum):
 
 
 class Duration():
-    A1 = 50
-    A2 = 100
-    B1 = 150
-    B2 = 300
-    C1 = 400
-    C2 = 500
+    A1 = 5
+    A2 = 10
+    B1 = 15
+    B2 = 30
+    C1 = 40
+    C2 = 50
 
 
 class Interval():
-    A1 = 100
-    A2 = 200
-    B1 = 300
-    B2 = 400
-    C1 = 500
-    C2 = 600
+    A1 = 10
+    A2 = 20
+    B1 = 30
+    B2 = 40
+    C1 = 50
+    C2 = 60
 
 
 class CustomerWeight():

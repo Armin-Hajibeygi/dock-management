@@ -3,11 +3,12 @@ from consts import Algorithms, Interval
 import os, sys
 
 simulation_time = 8 * 60
-simulation_algorithm = Algorithms.SCALED_T
+simulation_algorithm = Algorithms.SJF
+number_of_cashiers = 3
 
 sys.setrecursionlimit(simulation_time * 10)
 
-dock_management = simulation.Simulation(simulation_time= simulation_time, algorithm= simulation_algorithm, number_of_cashiers= 3)
+dock_management = simulation.Simulation(simulation_time,simulation_algorithm, number_of_cashiers)
 
 #Initial State
 customer1 = customer.Customer(simulation.CustomerType.A1)
