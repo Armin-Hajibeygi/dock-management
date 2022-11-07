@@ -23,8 +23,7 @@ class Simulation:
     
 
     def next_event(self):
-        sorted_fel = sorted(self.fel, key=lambda x: x['Event Time'])
-        current_event = sorted_fel[0]
+        current_event = min(self.fel, key=lambda x: x['Event Time'])
         event_type = current_event["Event Type"]
         event_time = current_event['Event Time']
         customer = current_event['Customer']

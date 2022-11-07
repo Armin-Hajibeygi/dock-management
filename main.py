@@ -2,10 +2,10 @@ import customer, simulation
 from consts import Algorithms
 import os, sys
 
-simulation_time = 8 * 60
+simulation_time = 8 * 600
 simulation_algorithm = Algorithms.SCALED_T
 
-sys.setrecursionlimit(simulation_time * 10)
+#sys.setrecursionlimit(simulation_time * 10)
 
 dock_management = simulation.Simulation(simulation_time= simulation_time, algorithm= simulation_algorithm, number_of_cashiers= 3)
 

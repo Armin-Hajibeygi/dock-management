@@ -58,7 +58,10 @@ class Customer:
 
     
     def get_scaled_t_score(self, min, max):
-        t_score = 100 * ((self.waiting_time - min) / (max - min))
+        try:
+            t_score = 100 * ((self.waiting_time - min) / (max - min))
+        except:
+            t_score = 100
         
         if (self.type == CustomerType.A1):
             w_score = CustomerWeight.A1

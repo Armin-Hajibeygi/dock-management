@@ -45,12 +45,12 @@ class Duration():
 
 
 class Interval():
-    A1 = 10
-    A2 = 20
-    B1 = 30
-    B2 = 40
-    C1 = 50
-    C2 = 60
+    A1 = 100
+    A2 = 200
+    B1 = 300
+    B2 = 400
+    C1 = 500
+    C2 = 600
 
 
 class CustomerWeight():
