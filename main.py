@@ -1,11 +1,11 @@
 import customer, simulation
-from consts import Algorithms
+from consts import Algorithms, Interval
 import os, sys
 
-simulation_time = 8 * 600
+simulation_time = 8 * 60
 simulation_algorithm = Algorithms.SCALED_T
 
-#sys.setrecursionlimit(simulation_time * 10)
+sys.setrecursionlimit(simulation_time * 10)
 
 dock_management = simulation.Simulation(simulation_time= simulation_time, algorithm= simulation_algorithm, number_of_cashiers= 3)
 
@@ -17,12 +17,12 @@ customer4 = customer.Customer(simulation.CustomerType.B2)
 customer5 = customer.Customer(simulation.CustomerType.C1)
 customer6 = customer.Customer(simulation.CustomerType.C2)
 
-dock_management.fel_maker(simulation.EventType.ARRIVAL, 0, customer1)
-dock_management.fel_maker(simulation.EventType.ARRIVAL, 0, customer2)
-dock_management.fel_maker(simulation.EventType.ARRIVAL, 0, customer3)
-dock_management.fel_maker(simulation.EventType.ARRIVAL, 0, customer4)
-dock_management.fel_maker(simulation.EventType.ARRIVAL, 0, customer5)
-dock_management.fel_maker(simulation.EventType.ARRIVAL, 0, customer6)
+dock_management.fel_maker(simulation.EventType.ARRIVAL, Interval.A1, customer1)
+dock_management.fel_maker(simulation.EventType.ARRIVAL, Interval.A2, customer2)
+dock_management.fel_maker(simulation.EventType.ARRIVAL, Interval.B1, customer3)
+dock_management.fel_maker(simulation.EventType.ARRIVAL, Interval.B2, customer4)
+dock_management.fel_maker(simulation.EventType.ARRIVAL, Interval.C1, customer5)
+dock_management.fel_maker(simulation.EventType.ARRIVAL, Interval.C2, customer6)
 
 dock_management.fel_maker("End of Simulation", simulation_time)
 
