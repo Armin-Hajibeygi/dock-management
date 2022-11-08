@@ -36,7 +36,7 @@ class Algorithms(Enum):
 
 
 class Duration():
-    A1 = 5
+    A1 = 10
     A2 = 10
     B1 = 15
     B2 = 30
