@@ -5,6 +5,10 @@ class Line:
         self.waiting_customers = list()
 
 
+    def line_length(self):
+        return len(self.waiting_customers)
+    
+
     def add_customer(self, customer):
         self.waiting_customers.append(customer)
     
@@ -58,7 +62,6 @@ class Line:
         for customer in self.waiting_customers:
             customer.get_scaled_t_score(min_waiting_time, max_waiting_time)
 
-        
         sort_by_scaled_t = max(self.waiting_customers, key= lambda customer: customer.score)
         return sort_by_scaled_t
         

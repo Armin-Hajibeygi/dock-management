@@ -23,6 +23,7 @@ class EventType(Enum):
 
 
 class CustomerStatus(Enum):
+    CREATED = 0
     ARRIVED = 1
     SERVING = 2
     END = 3
@@ -34,29 +35,29 @@ class Algorithms(Enum):
     HRRN = 3
     SCALED_T = 4
 
-
+#Duration Parameters for Exponential Function
 class Duration():
-    A1 = 10
-    A2 = 10
-    B1 = 15
-    B2 = 30
-    C1 = 40
-    C2 = 50
+    A1 = 0.169
+    A2 = 0.083
+    B1 = 0.154
+    B2 = 0.64
+    C1 = 0.231
+    C2 = 0.65
 
-
+#Interval Parameters for Exponential Function
 class Interval():
-    A1 = 10
-    A2 = 20
-    B1 = 30
-    B2 = 40
-    C1 = 50
-    C2 = 60
+    A1 = 0.005
+    A2 = 0.33
+    B1 = 0.095
+    B2 = 0.084
+    C1 = 0.008
+    C2 = 0.009
 
 
 class CustomerWeight():
-    A1 = 1
-    A2 = 2
-    B1 = 3
-    B2 = 4
+    A1 = 45
+    A2 = 35
+    B1 = 25
+    B2 = 15
     C1 = 5
-    C2 = 6
+    C2 = 0

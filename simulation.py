@@ -1,6 +1,6 @@
 import line
 from customer import Customer, CustomerStatus
-from consts import Interval
+from consts import exponential, Interval
 from consts import CustomerType as CustomerType
 from consts import EventType as EventType
 
@@ -12,6 +12,7 @@ class Simulation:
         self.number_of_cashiers = number_of_cashiers
         self.clock = 0
         self.total_served_customers = 0
+        self.max_queue_length = 0
         self.customers = list()
         self.fel = list()
         self.main_line = line.Line()
@@ -38,7 +39,10 @@ class Simulation:
 
         #Nice Print of the Event
         # try:
-        #     print(str(event_type).ljust(30) + '\t' + str(round(event_time, 3)).ljust(15) + '\t' + ("Customer" + str(customer.id)).ljust(15))
+        #     try:
+        #         print(str(event_type).ljust(30) + '\t' + str(round(event_time, 3)).ljust(15) + '\t' + ("Customer" + str(customer.id)).ljust(15) + '\t' + (customer.type.name).ljust(15) + '\t' + (str(round(customer.score, 3)).ljust(15)))
+        #     except:
+        #         print(str(event_type).ljust(30) + '\t' + str(round(event_time, 3)).ljust(15) + '\t' + ("Customer" + str(customer.id)).ljust(15) + '\t' + (customer.type.name).ljust(15))
         # except:
         #     print(str(event_type).ljust(30) + '\t' + str(round(event_time, 3)).ljust(15))            
 
@@ -77,27 +81,31 @@ class Simulation:
         #If there is no cashiers, the customer should go to the queue
         else:
             self.main_line.add_customer(customer)
+            
+            if (self.main_line.line_length() > self.max_queue_length):
+                self.max_queue_length = self.main_line.line_length()
         
         #Interval between arrival of customers based on customer type
         if (customer.type == CustomerType.A1):
-            interval = Interval.A1
+            interval = exponential(Interval.A1)
         elif (customer.type == CustomerType.A2):
-            interval = Interval.A2
+            interval = exponential(Interval.A2)
         elif (customer.type == CustomerType.B1):
-            interval = Interval.B1
+            interval = exponential(Interval.B1)
         elif (customer.type == CustomerType.B2):
-            interval = Interval.B2
+            interval = exponential(Interval.B2)
         elif (customer.type == CustomerType.C1):
-            interval = Interval.C1
+            interval = exponential(Interval.C1)
         elif (customer.type == CustomerType.C2):
-            interval = Interval.C2
+            interval = exponential(Interval.C2)
 
-        #Create Next Customer
-        new_customer_type = customer.type
-        new_customer = Customer(new_customer_type)
+        if (self.total_customers() <= 300):
+            #Create Next Customer
+            new_customer_type = customer.type
+            new_customer = Customer(new_customer_type)
 
-        #Create the next arrival event
-        self.fel_maker(EventType.ARRIVAL, self.clock + interval, new_customer)
+            #Create the next arrival event
+            self.fel_maker(EventType.ARRIVAL, self.clock + interval, new_customer)
     
     
     def start_service(self, customer):
@@ -132,16 +140,34 @@ class Simulation:
 
     def simulation_data(self):
         simulation_data = dict()
-        simulation_data["A1"] = {"Total": 0, "Served": 0}
-        simulation_data["A2"] = {"Total": 0, "Served": 0}
-        simulation_data["B1"] = {"Total": 0, "Served": 0}
-        simulation_data["B2"] = {"Total": 0, "Served": 0}
-        simulation_data["C1"] = {"Total": 0, "Served": 0}
-        simulation_data["C2"] = {"Total": 0, "Served": 0}
+        simulation_data["A1"] = {"Total": 0, "Served": 0, "Time in Queue": 0}
+        simulation_data["A2"] = {"Total": 0, "Served": 0, "Time in Queue": 0}
+        simulation_data["B1"] = {"Total": 0, "Served": 0, "Time in Queue": 0}
+        simulation_data["B2"] = {"Total": 0, "Served": 0, "Time in Queue": 0}
+        simulation_data["C1"] = {"Total": 0, "Served": 0, "Time in Queue": 0}
+        simulation_data["C2"] = {"Total": 0, "Served": 0, "Time in Queue": 0}
 
         for customer in self.customers:
             simulation_data[customer.type.name]["Total"] += 1
             if (customer.get_served()):
                 simulation_data[customer.type.name]["Served"] += 1
+                simulation_data[customer.type.name]["Time in Queue"] += customer.get_queue_waiting_time()
+            else:
+                simulation_data[customer.type.name]["Time in Queue"] += customer.get_waiting_time(self.simulation_time)
             
         return simulation_data
+    
+
+    def get_max_queue_length(self):
+        return self.max_queue_length
+    
+    
+    def get_total_time_in_queue(self):
+        total_time_in_queue = 0
+        total_served = 0
+        for customer in self.customers:
+            if (customer.get_served()):
+                total_time_in_queue += customer.get_queue_waiting_time()
+                total_served += 1
+                
+        return (total_time_in_queue / total_served)
