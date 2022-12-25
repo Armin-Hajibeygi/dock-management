@@ -12,11 +12,12 @@ average_served_customers = 0
 average_total_customers = 0
 average_waiting_time_in_queue = 0
 max_queue_length = 0
+total_number_of_customers = {"A1": 0, "A2": 0, "B1": 0, "B2": 0, "C1": 0, "C2": 0}
 number_of_served_customers = {"A1": 0, "A2": 0, "B1": 0, "B2": 0, "C1": 0, "C2": 0}
 percent_of_served_customers = {"A1": 0, "A2": 0, "B1": 0, "B2": 0, "C1": 0, "C2": 0}
 queue_waiting_time = {"A1": 0, "A2": 0, "B1": 0, "B2": 0, "C1": 0, "C2": 0}
 
-number_of_simulation = 100
+number_of_simulation = 10000
 
 
 for i in range(number_of_simulation):
@@ -56,6 +57,8 @@ for i in range(number_of_simulation):
     
     for category, data in dock_management.simulation_data().items():
         try:
+            number_of_served_customers[category] += (data['Served'] / number_of_simulation)
+            total_number_of_customers[category] += (data['Total'] / number_of_simulation)
             percent_of_served_customers[category] += ((data['Served'] / data['Total']) / number_of_simulation )
             queue_waiting_time[category] += ((data['Time in Queue'] / data['Total']) / number_of_simulation)
         except:
@@ -83,3 +86,9 @@ print(f"Average Time in Queue for B2: {queue_waiting_time['B2']}")
 print(f"Average Time in Queue for C1: {queue_waiting_time['C1']}")
 print(f"Average Time in Queue for C2: {queue_waiting_time['C2']}")
 print('-------------------------------------------------------------------------------------------------')
+print(f"Total number of customers A1: {total_number_of_customers['A1']} - Served: {number_of_served_customers['A1']}")
+print(f"Total number of customers A2: {total_number_of_customers['A2']} - Served: {number_of_served_customers['A2']}")
+print(f"Total number of customers B1: {total_number_of_customers['B1']} - Served: {number_of_served_customers['B1']}")
+print(f"Total number of customers B2: {total_number_of_customers['B2']} - Served: {number_of_served_customers['B2']}")
+print(f"Total number of customers C1: {total_number_of_customers['C1']} - Served: {number_of_served_customers['C1']}")
+print(f"Total number of customers C2: {total_number_of_customers['C2']} - Served: {number_of_served_customers['C2']}")

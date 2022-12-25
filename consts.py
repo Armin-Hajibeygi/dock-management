@@ -37,19 +37,19 @@ class Algorithms(Enum):
 
 #Duration Parameters for Exponential Function
 class Duration():
-    A1 = 0.169
+    A1 = 0.291
     A2 = 0.083
-    B1 = 0.154
-    B2 = 0.64
+    B1 = 0.256
+    B2 = 0.054
     C1 = 0.231
-    C2 = 0.65
+    C2 = 0.059
 
 #Interval Parameters for Exponential Function
 class Interval():
-    A1 = 0.005
-    A2 = 0.33
-    B1 = 0.095
-    B2 = 0.084
+    A1 = 0.241
+    A2 = 0.145
+    B1 = 0.240
+    B2 = 0.403
     C1 = 0.008
     C2 = 0.009
 
