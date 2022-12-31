@@ -99,7 +99,7 @@ class Simulation:
         elif (customer.type == CustomerType.C2):
             interval = exponential(Interval.C2)
 
-        if (self.total_customers() <= 300):
+        if (self.total_customers() <= 95):
             #Create Next Customer
             new_customer_type = customer.type
             new_customer = Customer(new_customer_type)

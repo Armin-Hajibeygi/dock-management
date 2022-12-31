@@ -5,7 +5,7 @@ import os, sys
 os.system('clear')
 
 simulation_time = 8 * 60
-simulation_algorithm = Algorithms.SCALED_T
+simulation_algorithm = Algorithms.SJF
 number_of_cashiers = 3
 
 average_served_customers = 0
@@ -17,7 +17,7 @@ number_of_served_customers = {"A1": 0, "A2": 0, "B1": 0, "B2": 0, "C1": 0, "C2":
 percent_of_served_customers = {"A1": 0, "A2": 0, "B1": 0, "B2": 0, "C1": 0, "C2": 0}
 queue_waiting_time = {"A1": 0, "A2": 0, "B1": 0, "B2": 0, "C1": 0, "C2": 0}
 
-number_of_simulation = 10000
+number_of_simulation = 1000
 
 
 for i in range(number_of_simulation):
